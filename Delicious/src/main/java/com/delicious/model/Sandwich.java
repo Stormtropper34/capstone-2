@@ -1,6 +1,7 @@
 package com.delicious.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Sandwich extends MenuItem {
     private String size;
@@ -14,6 +15,7 @@ public class Sandwich extends MenuItem {
         this.bread = bread;
         this.toasted = false;
         this.toppings = new ArrayList<>();
+
     }
 
     public String getSize() {
@@ -36,103 +38,45 @@ public class Sandwich extends MenuItem {
         return new ArrayList<>(toppings);
     }
 
-    public void addMeat(String meatName, int servings) {
-        if (!DeliMenu.MEATS.contains(meatName)) {
-            return;
-        }
-
-        for (Topping existingTopping : toppings) {
-            if (existingTopping instanceof Meat && existingTopping.getName().equalsIgnoreCase(meatName)) {
-                ((Meat) existingTopping).addServings(servings);
-                return;
-            }
-        }
-        this.toppings.add(new Meat(meatName, servings));
-    }
-
-    public void addCheese(String cheeseName, int servings) {
-        if (!DeliMenu.CHEESES.contains(cheeseName)) {
-            System.err.println("Warning: Attempted to add unknown cheese: " + cheeseName);
-            return;
-        }
-
-        for (Topping existingTopping : toppings) {
-            if (existingTopping instanceof Cheese && existingTopping.getName().equalsIgnoreCase(cheeseName)) {
-                ((Cheese) existingTopping).addServings(servings);
-                return;
-            }
-        }
-        this.toppings.add(new Cheese(cheeseName, servings));
-    }
-
     public void addTopping(Topping newTopping) {
-        if (newTopping instanceof Meat || newTopping instanceof Cheese) {
-            handlePremiumToppings(newTopping);
-        } else {
-            handleOtherToppings(newTopping);
-        }
-    }
-
-    private void handlePremiumToppings(Topping newTopping) {
-        boolean found = false;
-        for (Topping oldTopping : toppings) {
-            if (oldTopping.getName().equals(newTopping.getName()) &&
-                    oldTopping.getClass().equals(newTopping.getClass())) {
-                if (oldTopping instanceof Meat && newTopping instanceof Meat) {
-                    ((Meat) oldTopping).addServings(((Meat) newTopping).getServings());
-                } else if (oldTopping instanceof Cheese && newTopping instanceof Cheese) {
-                    ((Cheese) oldTopping).addServings(((Cheese) newTopping).getServings());
-                }
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            this.toppings.add(newTopping);
-        }
-    }
-
-    private void handleOtherToppings(Topping newTopping) {
-        boolean exists = toppings.stream()
-                .anyMatch(existingTopping -> existingTopping.getName().equalsIgnoreCase(newTopping.getName()) &&
-                        existingTopping.getClass().equals(newTopping.getClass()));
-        if (!exists) {
-            this.toppings.add(newTopping);
+        boolean isCurrentTopping = toppings.stream()
+                .noneMatch(existing -> existing.getName().equalsIgnoreCase(newTopping.getName())
+                        && existing.getClass().equals(newTopping.getClass()));
+        if (isCurrentTopping) {
+            toppings.add(newTopping);
         }
     }
 
     @Override
-    public double calculatePrice() {
-        double price = DeliMenu.getBreadPrice(this.size);
-
+    public double totalPrice() {
+        double price = DeliMenu.getBreadPrice(size);
         for (Topping topping : toppings) {
-            price += topping.getPrice(this.size);
+            price += topping.getPrice(size);
         }
-
-        if (this.toasted) {
-            price += DeliMenu.TOASTING_FEE;
+        if (toasted) {
+            price += DeliMenu.toastedFee;
         }
         return price;
     }
 
     @Override
-    public String getDescription() {
+    public String getSummary() {
         return toString();
     }
 
     @Override
     public String toString() {
-        StringBuilder details = new StringBuilder();
-        details.append(size).append("\" ").append(bread).append(" Sandwich");
+        StringBuilder sb = new StringBuilder();
+        sb.append(size).append("\" ").append(bread).append(" Sandwich");
         if (toasted) {
-            details.append(" (Toasted)");
+            sb.append(" (Toasted)");
         }
 
         if (!toppings.isEmpty()) {
-            details.append("\n    Toppings:");
-            toppings.forEach(topping -> details.append("\n      - ").append(topping.toString()));
+            sb.append("\n    Toppings:");
+            toppings.forEach(topping -> sb.append("\n  - ").append(topping.toString()));
         }
-        details.append(String.format("\n    Item Price: $%.2f", calculatePrice()));
-        return details.toString();
+        sb.append(String.format("\n    Item Price: $%.2f", totalPrice()));
+        return sb.toString();
     }
 }
