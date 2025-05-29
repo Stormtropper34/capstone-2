@@ -2,8 +2,6 @@ package com.delicious.ui;
 
 import com.delicious.data.Order;
 import com.delicious.model.*;
-
-import java.io.IOException;
 import java.util.*;
 
 public class Main {
