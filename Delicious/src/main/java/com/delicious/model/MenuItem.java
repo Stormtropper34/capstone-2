@@ -11,7 +11,7 @@ public abstract class MenuItem {
         return name;
     }
 
-    public abstract double calculatePrice();
+    public abstract double totalPrice();
 
-    public abstract String getDescription();
+    public abstract String getSummary();
 }
