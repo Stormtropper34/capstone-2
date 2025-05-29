@@ -4,7 +4,6 @@ import com.delicious.model.MenuItem;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Order {
@@ -28,7 +27,11 @@ public class Order {
     }
 
     public List<MenuItem> getItems() {
-        return Collections.unmodifiableList(items);
+        List<MenuItem> menu = new ArrayList<>();
+        for (MenuItem item : items) {
+            menu.add(item);
+        }
+        return menu;
     }
 
     public void addItem(MenuItem item) {
