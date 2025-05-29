@@ -1,37 +1,22 @@
 package com.delicious.model;
 
 public class Meat extends Topping{
-    private int servings;
+    private boolean isExtra;
+    private int extraCount;
 
-    public Meat(String name, int servings) {
+    public Meat(String name, boolean isExtra, int extraCount) {
         super(name);
-        this.servings = servings;
-    }
-
-    public int getServings() {
-        return servings;
-    }
-    public void addServings(int count) {
-        this.servings += count;
+        this.isExtra = isExtra;
+        this.extraCount = extraCount;
     }
 
     @Override
     public double getPrice(String sandwichSize) {
-        double basePrice = DeliMenu.getToppingPrice("meat", "base", sandwichSize);
-        double extraPricePerServing = DeliMenu.getToppingPrice("meat", "extra", sandwichSize);
-
-        if (servings == 1) {
-            return basePrice;
-        } else {
-            return basePrice + ((servings - 1) * extraPricePerServing);
-        }
+        return DeliMenu.getMeatPrice(getName(), sandwichSize, isExtra, extraCount);
     }
 
     @Override
     public String toString() {
-        if (servings > 1) {
-            return name + servings;
-        }
-        return name;
+        return isExtra ? getName() + " x" + extraCount + " (Extra)" : getName();
     }
 }

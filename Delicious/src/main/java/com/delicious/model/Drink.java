@@ -19,17 +19,17 @@ public class Drink extends MenuItem{
     }
 
     @Override
-    public double calculatePrice() {
+    public double totalPrice() {
         return DeliMenu.getDrinkPrice(this.size);
     }
 
     @Override
-    public String getDescription() {
+    public String getSummary() {
         return getName();
     }
 
     @Override
     public String toString() {
-        return String.format("%s (%s) - $%.2f", type, size, calculatePrice());
+        return String.format("%s (%s) - $%.2f", type, size, totalPrice());
     }
 }

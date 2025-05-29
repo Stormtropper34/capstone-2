@@ -5,178 +5,138 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DeliMenu {
-        public static final List<MenuItem> BREAD_PRICES = new ArrayList<>();
-        public static final List<Topping> TOPPING_PRICES = new ArrayList<>();
-        public static final List<MenuItem> DRINK_PRICES = new ArrayList<>();
-        public static final double CHIP_PRICE = 1.50;
-        public static final double TOASTING_FEE = 0.50;
+    public static final List<MenuItem> breadPrices = new ArrayList<>();
+    public static final List<PriceTopping> toppingPrices = new ArrayList<>();
+    public static final List<MenuItem> drinkPrices = new ArrayList<>();
+    public static final double chipPrice = 1.50;
+    public static final double toastedFee = 0.50;
 
-        public static final List<String> BREAD_TYPES = Arrays.asList("White", "Wheat", "Rye", "Wrap");
-        public static final List<String> SANDWICH_SIZES = Arrays.asList("4", "8", "12");
+    public static final List<String> typeOfBread = Arrays.asList("White", "Wheat", "Rye", "Wrap");
+    public static final List<String> sandwichSizes = Arrays.asList("4", "8", "12");
 
-        public static final List<String> MEATS = Arrays.asList("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon");
-        public static final List<String> CHEESES = Arrays.asList("American", "Provolone", "Cheddar", "Swiss");
-        public static final List<String> REGULAR_TOPPINGS = Arrays.asList(
-                "Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños",
-                "Cucumbers", "Pickles", "Guacamole", "Mushrooms"
-        );
-        public static final List<String> SAUCES = Arrays.asList(
-                "Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette"
-        );
-        public static final List<String> SIDES = Arrays.asList(
-                "Au Jus", "Sauce"
-        );
+    public static final List<String> meats = Arrays.asList("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon");
+    public static final List<String> cheeses = Arrays.asList("American", "Provolone", "Cheddar", "Swiss");
+    public static final List<String> regularTopping = Arrays.asList("Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños", "Cucumbers", "Pickles", "Guacamole", "Mushrooms");
+    public static final List<String> sauces = Arrays.asList("Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette");
+    public static final List<String> sides = Arrays.asList("Au Jus", "Sauce");
 
-        public static final List<String> DRINK_SIZES = Arrays.asList("Small", "Medium", "Large");
-        public static final List<String> DRINK_FLAVORS = Arrays.asList("Coke", "Pepsi", "Sprite", "Orange Juice", "Water");
-        public static final List<String> CHIP_TYPES = Arrays.asList("BBQ", "Salt & Vinegar", "Original", "Cheddar & Sour Cream");
+    public static final List<String> drinkSizes = Arrays.asList("Small", "Medium", "Large");
+    public static final List<String> drinkFlavors = Arrays.asList("Coke", "Pepsi", "Sprite", "Orange Juice", "Water");
+    public static final List<String> chipTypes = Arrays.asList("BBQ", "Salt & Vinegar", "Original", "Cheddar & Sour Cream");
 
-        static {
+    static {
+        breadPrices.add(new MenuItem("Bread", "4", 5.50));
+        breadPrices.add(new MenuItem("Bread", "8", 7.00));
+        breadPrices.add(new MenuItem("Bread", "12", 8.50));
 
-            BREAD_PRICES.add(new MenuItem("Bread", "4", 5.50) {});
-            BREAD_PRICES.add(new MenuItem("Bread", "8", 7.00) {});
-            BREAD_PRICES.add(new MenuItem("Bread", "12", 8.50) {});
-
-            TOPPING_PRICES.add(new Topping("Steak", "meat", "4", 1.00, 0.50));
-            TOPPING_PRICES.add(new Topping("Steak", "meat", "8", 2.00, 1.00));
-            TOPPING_PRICES.add(new Topping("Steak", "meat", "12", 3.00, 1.50));
-            TOPPING_PRICES.add(new Topping("Ham", "meat", "4", 1.00, 0.50));
-            TOPPING_PRICES.add(new Topping("Ham", "meat", "8", 2.00, 1.00));
-            TOPPING_PRICES.add(new Topping("Ham", "meat", "12", 3.00, 1.50));
-            TOPPING_PRICES.add(new Topping("Salami", "meat", "4", 1.00, 0.50));
-            TOPPING_PRICES.add(new Topping("Salami", "meat", "8", 2.00, 1.00));
-            TOPPING_PRICES.add(new Topping("Salami", "meat", "12", 3.00, 1.50));
-            TOPPING_PRICES.add(new Topping("Roast Beef", "meat", "4", 1.00, 0.50));
-            TOPPING_PRICES.add(new Topping("Roast Beef", "meat", "8", 2.00, 1.00));
-            TOPPING_PRICES.add(new Topping("Roast Beef", "meat", "12", 3.00, 1.50));
-            TOPPING_PRICES.add(new Topping("Chicken", "meat", "4", 1.00, 0.50));
-            TOPPING_PRICES.add(new Topping("Chicken", "meat", "8", 2.00, 1.00));
-            TOPPING_PRICES.add(new Topping("Chicken", "meat", "12", 3.00, 1.50));
-            TOPPING_PRICES.add(new Topping("Bacon", "meat", "4", 1.00, 0.50));
-            TOPPING_PRICES.add(new Topping("Bacon", "meat", "8", 2.00, 1.00));
-            TOPPING_PRICES.add(new Topping("Bacon", "meat", "12", 3.00, 1.50));
-
-
-            TOPPING_PRICES.add(new Topping("American", "cheese", "4", 0.75, 0.30));
-            TOPPING_PRICES.add(new Topping("American", "cheese", "8", 1.50, 0.60));
-            TOPPING_PRICES.add(new Topping("American", "cheese", "12", 2.25, 0.90));
-            TOPPING_PRICES.add(new Topping("Provolone", "cheese", "4", 0.75, 0.30));
-            TOPPING_PRICES.add(new Topping("Provolone", "cheese", "8", 1.50, 0.60));
-            TOPPING_PRICES.add(new Topping("Provolone", "cheese", "12", 2.25, 0.90));
-            TOPPING_PRICES.add(new Topping("Cheddar", "cheese", "4", 0.75, 0.30));
-            TOPPING_PRICES.add(new Topping("Cheddar", "cheese", "8", 1.50, 0.60));
-            TOPPING_PRICES.add(new Topping("Cheddar", "cheese", "12", 2.25, 0.90));
-            TOPPING_PRICES.add(new Topping("Swiss", "cheese", "4", 0.75, 0.30));
-            TOPPING_PRICES.add(new Topping("Swiss", "cheese", "8", 1.50, 0.60));
-            TOPPING_PRICES.add(new Topping("Swiss", "cheese", "12", 2.25, 0.90));
-
-
-            for (String topping : REGULAR_TOPPINGS) {
-                TOPPING_PRICES.add(new Topping(topping, "regular", "4", 0.00, 0.00));
-                TOPPING_PRICES.add(new Topping(topping, "regular", "8", 0.00, 0.00));
-                TOPPING_PRICES.add(new Topping(topping, "regular", "12", 0.00, 0.00));
-            }
-            for (String sauce : SAUCES) {
-                TOPPING_PRICES.add(new Topping(sauce, "sauce", "4", 0.00, 0.00));
-                TOPPING_PRICES.add(new Topping(sauce, "sauce", "8", 0.00, 0.00));
-                TOPPING_PRICES.add(new Topping(sauce, "sauce", "12", 0.00, 0.00));
-            }
-            for (String side : SIDES) {
-                TOPPING_PRICES.add(new Topping(side, "side", "4", 0.00, 0.00));
-                TOPPING_PRICES.add(new Topping(side, "side", "8", 0.00, 0.00));
-                TOPPING_PRICES.add(new Topping(side, "side", "12", 0.00, 0.00));
-            }
-
-
-
-            DRINK_PRICES.add(new MenuItem("Drink", "Small", 2.00));
-            DRINK_PRICES.add(new MenuItem("Drink", "Medium", 2.50));
-            DRINK_PRICES.add(new MenuItem("Drink", "Large", 3.00));
-        }
-        public static double getBreadPrice(String size) {
-            for (MenuItem menuItem: BREAD_PRICES) {
-                if (menuItem.getName().equals("Bread") && menuItem.getSize().equals(size)) {
-                    return menuItem.getPrice();
-                }
-            }
-            return 0.00;
+        for (String meat : meats) {
+            toppingPrices.add(new Topping(meat, "meat", "4", 1.00, 0.50));
+            toppingPrices.add(new Topping(meat, "meat", "8", 2.00, 1.00));
+            toppingPrices.add(new Topping(meat, "meat", "12", 3.00, 1.50));
         }
 
-        private static Topping getTopping(String name, String type, String size) {
-            for (Topping toppings : TOPPING_PRICES) {
-                if (toppings.getName().equalsIgnoreCase(name) && toppings.getType().equalsIgnoreCase(type) && toppings.getSize().equals(size)) {
-                    return toppings;
-                }
+        for (String cheese : cheeses) {
+            toppingPrices.add(new Topping(cheese, "cheese", "4", 0.75, 0.30));
+            toppingPrices.add(new Topping(cheese, "cheese", "8", 1.50, 0.60));
+            toppingPrices.add(new Topping(cheese, "cheese", "12", 2.25, 0.90));
+        }
+
+        for (String topping : regularTopping) {
+            toppingPrices.add(new Topping(topping, "regular", "4", 0.00, 0.00));
+            toppingPrices.add(new Topping(topping, "regular", "8", 0.00, 0.00));
+            toppingPrices.add(new Topping(topping, "regular", "12", 0.00, 0.00));
+        }
+
+        for (String sauce : sauces) {
+            toppingPrices.add(new Topping(sauce, "sauce", "4", 0.00, 0.00));
+            toppingPrices.add(new Topping(sauce, "sauce", "8", 0.00, 0.00));
+            toppingPrices.add(new Topping(sauce, "sauce", "12", 0.00, 0.00));
+        }
+
+        for (String side : sides) {
+            toppingPrices.add(new Topping(side, "side", "4", 0.00, 0.00));
+            toppingPrices.add(new Topping(side, "side", "8", 0.00, 0.00));
+            toppingPrices.add(new Topping(side, "side", "12", 0.00, 0.00));
+        }
+
+        drinkPrices.add(new MenuItem("Drink", "Small", 2.00));
+        drinkPrices.add(new MenuItem("Drink", "Medium", 2.50));
+        drinkPrices.add(new MenuItem("Drink", "Large", 3.00));
+    }
+
+    public static double getBreadPrice(String size) {
+        for (MenuItem item : breadPrices) {
+            if (item.getName().equals("Bread") && item.getSize().equals(size)) {
+                return item.getPrice();
             }
-            return null;
         }
+        return 0.00;
+    }
 
-        public static double getMeatPrice(String name, String size, boolean isExtra, int extraCount) {
-            Topping toppings = getTopping(name, "meat", size);
-            if (toppings == null) {
-                return 0.00;
+    private static Topping getTopping(String name, String type, String size) {
+        for (Topping t : toppingPrices) {
+            if (t.getName().equalsIgnoreCase(name) && t.getType().equalsIgnoreCase(type) && t.getSize().equals(size)) {
+                return t;
             }
-            if (!isExtra) {
-                return 0.00;
+        }
+        return null;
+    }
+
+    public static double getMeatPrice(String name, String size, boolean isExtra, int extraCount) {
+        Topping t = getTopping(name, "meat", size);
+        if (t == null || !isExtra) return 0.00;
+        return t.getExtraPrice() * extraCount;
+    }
+
+    public static double getCheeseBasePrice(String name) {
+        Topping t = getTopping(name);
+        if (t == null || !isExtra) return 0.00;
+        return t.getExtraPrice() * extraCount;
+    }
+
+    public static double getRegularToppingPrice(String name, String size) {
+        Topping t = getTopping(name, "regular", size);
+        return (t != null) ? t.getBasePrice() : 0.00;
+    }
+
+    public static double getSaucePrice(String name, String size) {
+        Topping t = getTopping(name, "sauce", size);
+        return (t != null) ? t.getBasePrice() : 0.00;
+    }
+
+    public static double getSidePrice(String name, String size) {
+        Topping t = getTopping(name, "side", size);
+        return (t != null) ? t.getBasePrice() : 0.00;
+    }
+
+    public static double getDrinkPrice(String size) {
+        for (MenuItem item : drinkPrices) {
+            if (item.getName().equals("Drink") && item.getSize().equals(size)) {
+                return item.getPrice();
             }
-            return toppings.getExtraPrice() * extraCount;
         }
+        return 0.00;
+    }
 
-        public static double getCheesePrice(String name, String size, boolean isExtra, int extraCount) {
-            Topping toppings = getTopping(name, "cheese", size);
-            if (toppings == null) {
-                return 0.00;
+    public static double getChipPrice() {
+        return chipPrice;
+    }
+
+    public static double getExtraPriceForMeat(String size) {
+        for (Topping t : toppingPrices) {
+            if (t.getType().equals("meat") && t.getSize().equals(size)) {
+                return t.getExtraPrice();
             }
-            if (!isExtra) {
-                return 0.00;
+        }
+        return 0.00;
+    }
+
+    public static double getExtraPriceForCheese(String size) {
+        for (Topping t : toppingPrices) {
+            if (t.getType().equals("cheese") && t.getSize().equals(size)) {
+                return t.getExtraPrice();
             }
-            return toppings.getExtraPrice() * extraCount;
         }
-
-        public static double getRegularToppingPrice(String name, String size) {
-            Topping data = getTopping(name, "regular", size);
-            return (data != null) ? data.getBasePrice() : 0.00;
-        }
-
-        public static double getSaucePrice(String name, String size) {
-            Topping toppings = getTopping(name, "sauce", size);
-            return (toppings != null) ? toppings.getBasePrice() : 0.00;
-        }
-
-        public static double getSidePrice(String name, String size) {
-            Topping toppings = getTopping(name, "side", size);
-            return (toppings != null) ? toppings.getBasePrice() : 0.00;
-        }
-
-        public static double getDrinkPrice(String size) {
-            for (MenuItem menuItem: DRINK_PRICES) {
-                if (menuItem.getName().equals("Drink") && menuItem.getSize().equals(size)) {
-                    return menuItem.getPrice();
-                }
-            }
-            return 0.00;
-        }
-
-        public static double getChipPrice() {
-            return CHIP_PRICE;
-        }
-
-        public static double getMeatExtraPriceForDisplay(String size) {
-            for (Topping toppings : TOPPING_PRICES) {
-                if (toppings.getType().equals("meat") && toppings.getSize().equals(size)) {
-                    return toppings.getExtraPrice();
-                }
-            }
-            return 0.00;
-        }
-
-        public static double getCheeseExtraPriceForDisplay(String size) {
-            for (Topping toppings: TOPPING_PRICES) {
-                if (toppings.getType().equals("cheese") && toppings.getSize().equals(size)) {
-                    return toppings.getExtraPrice();
-                }
-            }
-            return 0.00;
-        }
+        return 0.00;
     }
 }
