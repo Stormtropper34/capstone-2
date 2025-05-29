@@ -5,7 +5,7 @@ import com.delicious.model.*;
 import java.util.*;
 
 public class Main {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private Order currentOrder;
 
     public static void main(String[] args) {
