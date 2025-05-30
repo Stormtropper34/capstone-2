@@ -6,8 +6,8 @@ public class Item extends MenuItem {
 
     public Item(String name, String size, double price) {
         super(name);
-        this.size = size;
-        this.price = price;
+       this.size = size;
+       this.price = price;
     }
 
     public String getSize() {
@@ -19,7 +19,7 @@ public class Item extends MenuItem {
     }
 
     @Override
-    public double totalPrice() {
+    public double getTotalPrice() {
         return price;
     }
 

@@ -1,28 +1,23 @@
 package com.delicious.model;
 
-public class Cheese extends Topping{
+public class Cheese extends Topping {
     private boolean isExtra;
+    private int extraCount;
 
-    public Cheese(String name, boolean isExtra) {
+    public Cheese(String name) {
         super(name);
         this.isExtra = isExtra;
+        this.extraCount = extraCount;
     }
-
     public boolean isExtra() {
         return isExtra;
     }
-
-    @Override
+    public int getExtraCount() {
+        return extraCount;
+    }
     public double getPrice(String sandwichSize) {
-        if (isExtra) {
-            return DeliMenu.getExtraPriceForCheese(sandwichSize);
-        } else {
-            return DeliMenu.getCheeseBasePrice(sandwichSize);
-
-        }
+        return DeliMenu.getToppingPrice(getName(),"cheese", sandwichSize, isExtra, extraCount);
     }
 
-    @Override
-    public String toString() {
-        return isExtra ? getName() + " (Extra)" : getName();
 }
+

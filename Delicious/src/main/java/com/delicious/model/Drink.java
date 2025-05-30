@@ -1,17 +1,18 @@
 package com.delicious.model;
 
 public class Drink extends MenuItem{
-    private String type;
+    private String flavor;
     private String size;
 
-    public Drink(String type, String size) {
-        super(type + " (" + size + ") Drink");
-        this.type = type;
+
+    public Drink(String flavor, String size) {
+        super(flavor + " Drink");
+        this.flavor = flavor;
         this.size = size;
     }
 
-    public String getType() {
-        return type;
+    public String getFlavor() {
+        return flavor;
     }
 
     public String getSize() {
@@ -19,17 +20,17 @@ public class Drink extends MenuItem{
     }
 
     @Override
-    public double totalPrice() {
-        return DeliMenu.getDrinkPrice(this.size);
+    public double getTotalPrice() {
+        return DeliMenu.getDrinkPrice(size);
     }
 
     @Override
     public String getSummary() {
-        return getName();
+        return String.format("%s (%s)", flavor, size);
     }
 
     @Override
     public String toString() {
-        return String.format("%s (%s) - $%.2f", type, size, totalPrice());
+        return String.format("%s (%s) - $%.2f", flavor, size, getTotalPrice());
     }
 }

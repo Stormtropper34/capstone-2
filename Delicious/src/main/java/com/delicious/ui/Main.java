@@ -2,7 +2,12 @@ package com.delicious.ui;
 
 import com.delicious.data.Order;
 import com.delicious.model.*;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+import java.util.function.Function;
 
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
@@ -14,10 +19,11 @@ public class Main {
     }
 
     public void run() {
+        System.out.println("Welcome to Delicious sandwiches!!");
         int choice;
         do {
             displayHomeScreen();
-            choice = userChoice("Enter your choice 0-1: ");
+            choice = userChoice("Enter your choice (0-1): ");
 
             switch (choice) {
                 case 1:
@@ -27,7 +33,7 @@ public class Main {
                     System.out.println("Exiting application. Goodbye, have a nice day!");
                     break;
                 default:
-                    System.out.println("Please try again.");
+                    System.out.println("Invalid choice. Please try again.");
             }
         } while (choice != 0);
 
@@ -84,10 +90,13 @@ public class Main {
     private int userChoice(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextInt()) {
-            System.out.print("Invalid input. " + prompt);
+            System.out.println("Invalid input. Please enter a number.");
             scanner.next();
+            System.out.print(prompt);
         }
-        return scanner.nextInt();
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        return choice;
     }
 
     private String userChoice(String label, List<String> options, List<Double> prices) {
@@ -95,7 +104,7 @@ public class Main {
 
         for (int i = 0; i < options.size(); i++) {
             if (prices != null && prices.size() > i) {
-                System.out.println((i + 1) + ") " + options.get(i) + " ($" + prices.get(i) + ")");
+                System.out.println((i + 1) + ") " + options.get(i) + " ($" + String.format("%.2f", prices.get(i)) + ")");
             } else {
                 System.out.println((i + 1) + ") " + options.get(i));
             }
@@ -107,18 +116,56 @@ public class Main {
             System.out.print("Enter your choice (1 to " + options.size() + "): ");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
+                scanner.nextLine();
                 if (choice >= 1 && choice <= options.size()) {
                     valid = true;
                 } else {
-                    System.out.println("That number is not in the list.");
+                    System.out.println("That number is not in the list. Please try again.");
                 }
             } else {
-                System.out.println("That's not a number.");
+                System.out.println("That's not a number. Please try again.");
                 scanner.next();
+                scanner.nextLine();
             }
         }
-
         return options.get(choice - 1);
+    }
+
+    private String userChoice(String label, List<String> options, Function<String, Double> priceFunction) {
+        System.out.println("Choose a " + label + ":");
+
+        for (int i = 0; i < options.size(); i++) {
+            String option = options.get(i);
+            double price = priceFunction.apply(option);
+            System.out.println((i + 1) + ") " + option + " ($" + String.format("%.2f", price) + ")");
+        }
+
+        int choice = 0;
+        boolean valid = false;
+
+        while (!valid) {
+            System.out.print("Enter your choice (1 to " + options.size() + "): ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice >= 1 && choice <= options.size()) {
+                    valid = true;
+                } else {
+                    System.out.println("That number is not in the list. Please try again.");
+                }
+            } else {
+                System.out.println("That's not a number. Please try again.");
+                scanner.next();
+                scanner.nextLine();
+            }
+        }
+        return options.get(choice - 1);
+    }
+
+    private boolean promptBoolean(String message) {
+        System.out.print(message + " (y/n): ");
+        String input = scanner.nextLine().trim().toLowerCase();
+        return input.equals("y") || input.equals("yes");
     }
 
 
@@ -126,20 +173,21 @@ public class Main {
         if (order.getItems().isEmpty()) {
             System.out.println("   No items in order yet. :(");
         } else {
-            System.out.println("--- Current Order Items (Total: $" + String.format("%.2f", order.getTotalCost()) + ") ---");
+            System.out.println("--- Current Order Items (Subtotal: $" + String.format("%.2f", order.getTotalCost()) + ") ---");
             List<MenuItem> reversedItems = new ArrayList<>(order.getItems());
             Collections.reverse(reversedItems);
             for (MenuItem item : reversedItems) {
-                System.out.println("  - " + item.getDescription() + " (Price: $" + String.format("%.2f", item.getTotalCost()) + ")");
+                System.out.println("  - " + item.getSummary() + " (Price: $" + String.format("%.2f", item.getTotalPrice()) + ")");
             }
             System.out.println("--------------------------------");
         }
     }
 
+
     private void addSandwich() {
         System.out.println("\n----- ADD SANDWICH -----");
 
-        String selectedSize = selectSandwichSize();
+        String selectedSize = selectedSize();
         String selectedBread = selectBreadType();
 
         Sandwich sandwich = new Sandwich(selectedSize, selectedBread);
@@ -152,76 +200,92 @@ public class Main {
         System.out.println("Sandwich added to order!");
     }
 
-    private String selectSandwichSize() {
-        return userChoice("sandwich size", DeliMenu.sandwichSizes, DeliMenu::getBreadPrice);
+    private String selectedSize() {
+        return userChoice("sandwich size: ", DeliMenu.sandwichSizes, DeliMenu::getSandwichSizeBasePrice);
     }
 
     private String selectBreadType() {
-        return userChoice("bread", DeliMenu.typeOfBread, null);
-    }
-
-    private boolean promptBoolean(String message) {
-        System.out.print(message + " (y/n): ");
-        String input = scanner.next().trim().toLowerCase();
-        return input.equals("y") || input.equals("yes");
+        return userChoice("bread", DeliMenu.typeOfBread, DeliMenu::getBreadPrice);
     }
 
     private void promptForToppings(Sandwich sandwich) {
         System.out.println("\n--- Customize Toppings ---");
 
-        addAdditionalToppings(sandwich, "Meat", DeliMenu.meats);
-        addAdditionalToppings(sandwich, "Cheese", DeliMenu.cheeses);
-        addRegularToppings(sandwich, "Regular Toppings", DeliMenu.regularTopping, RegularTopping.class);
-        addRegularToppings(sandwich, "Sauces", DeliMenu.sauces, Sauce.class);
-        addRegularToppings(sandwich, "Sides", DeliMenu.sides, Side.class);
+        addToppingSelections(sandwich, "Meat", DeliMenu.meats);
+        addToppingSelections(sandwich, "Cheese", DeliMenu.cheeses);
+        addToppingSelections(sandwich, "Regular Toppings", DeliMenu.regularToppings);
+        addToppingSelections(sandwich, "Sauces", DeliMenu.sauces);
+        addToppingSelections(sandwich, "Sides", DeliMenu.sides);
     }
 
-    private void addAdditionalToppings(Sandwich sandwich, String categoryName, List<String> toppings) {
+    private void addToppingSelections(Sandwich sandwich, String categoryName, List<String> toppings) {
         System.out.println("\n--- Add " + categoryName + " ---");
-        for (String topping : toppings) {
-            if (promptBoolean("  Add " + topping + "?")) {
+        if (toppings.isEmpty()) {
+            System.out.println("No " + categoryName.toLowerCase() + " available.");
+            return;
+        }
+
+        for (String toppingName : toppings) {
+            if (promptBoolean("  Add " + toppingName + "? (+$" + String.format("%.2f", DeliMenu.getSandwichSizeBasePrice(toppingName)) + ")")) {
+                Topping topping = null;
                 if (categoryName.equals("Meat")) {
-                    sandwich.addMeat(topping);
+                    topping = new Meat(toppingName);
                 } else if (categoryName.equals("Cheese")) {
-                    sandwich.addCheese(topping);
+                    topping = new Cheese(toppingName);
+                } else if (categoryName.equals("Regular Toppings")) {
+                    topping = new RegularTopping(toppingName);
+                } else if (categoryName.equals("Sauces")) {
+                    topping = new Sauce(toppingName);
+                } else if (categoryName.equals("Sides")) {
+                    topping = new Side(toppingName);
+                } else {
+                    System.err.println("Error: Unknown topping category: " + categoryName);
+                    continue;
+                }
+
+                if (topping != null) {
+                    sandwich.addTopping(topping);
+                    System.out.println("  Added " + toppingName + ".");
                 }
             }
         }
     }
 
-    private void addRegularToppings(Sandwich sandwich, String categoryName, List<String> toppings, Class<? extends Topping> clazz) {
-        System.out.println("\n--- Add " + categoryName + " ---");
-        for (String topping : toppings) {
-            if (promptBoolean("  Add " + topping + "?")) {
-                try {
-                    Topping t = clazz.getConstructor(String.class).newInstance(topping);
-                    sandwich.addTopping(t);
-                } catch (Exception e) {
-                    System.out.println("Error adding " + topping + ": " + e.getMessage());
-                }
-            }
-        }
-    }
 
     private void addDrink() {
-        System.out.println("\n---- DRINK ----");
+        System.out.println("\n---- ADD DRINK ----");
         String size = userChoice("drink size", DeliMenu.drinkSizes, DeliMenu::getDrinkPrice);
-        String flavor = userChoice("drink flavor", DeliMenu.drinkFlavors, null);
+        String flavor = userChoice("drink flavor", DeliMenu.drinkFlavors, (Function<String, Double>) null);
 
         currentOrder.addItem(new Drink(flavor, size));
         System.out.println("Drink added!");
     }
 
     private void addChips() {
-        System.out.println("\n---- CHIPS ----");
-        String chipType = userChoice("chip type", DeliMenu.chipTypes, null);
+        System.out.println("\n---- ADD CHIPS ----");
+        List<Double> chipPrices = new ArrayList<>();
+        for (String type : DeliMenu.chipTypes) {
+            chipPrices.add(DeliMenu.getChipPrice());
+        }
+        String chipType = userChoice("chip type", DeliMenu.chipTypes, chipPrices);
         currentOrder.addItem(new Chips(chipType));
         System.out.println("Chips added!");
     }
 
+
+
     private void checkout() {
-        System.out.println("--- CHECKOUT ---");
-        System.out.println("Total Order Cost: $" + String.format("%.2f", currentOrder.getTotalCost()));
+        if (currentOrder.getItems().isEmpty()) {
+            System.out.println("Cannot checkout, order is empty.");
+            return;
+        }
+        System.out.println("\n--- CHECKOUT ---");
+        displayOrderItemsSummary(currentOrder);
+        System.out.println("Applying sales tax (if any)...");
+        double finalTotal = currentOrder.getTotalCost();
+        System.out.println("Your total is: $" + String.format("%.2f", finalTotal));
+        System.out.println("Thank you for your order!");
+        currentOrder = null;
     }
 
     private void cancelOrder() {

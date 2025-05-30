@@ -3,8 +3,8 @@ package com.delicious.model;
 public class Chips extends MenuItem{
     private String type;
 
-    public Chips(String name, String type) {
-        super(name);
+    public Chips(String type) {
+        super("Chips");
         this.type = type;
     }
 
@@ -13,17 +13,12 @@ public class Chips extends MenuItem{
     }
 
     @Override
-    public double totalPrice() {
+    public double getTotalPrice() {
         return DeliMenu.getChipPrice();
     }
 
     @Override
     public String getSummary() {
-        return getName();
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s Chips - $%.2f", type, totalPrice());
+        return "Chips (" + type + ")";
     }
 }

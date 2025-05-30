@@ -48,7 +48,7 @@ public class Sandwich extends MenuItem {
     }
 
     @Override
-    public double totalPrice() {
+    public double getTotalPrice() {
         double price = DeliMenu.getBreadPrice(size);
         for (Topping topping : toppings) {
             price += topping.getPrice(size);
@@ -76,7 +76,7 @@ public class Sandwich extends MenuItem {
             sb.append("\n    Toppings:");
             toppings.forEach(topping -> sb.append("\n  - ").append(topping.toString()));
         }
-        sb.append(String.format("\n    Item Price: $%.2f", totalPrice()));
+        sb.append(String.format("\n    Item Price: $%.2f", getTotalPrice()));
         return sb.toString();
     }
 }

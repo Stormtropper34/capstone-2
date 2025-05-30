@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class Receipt {
-    private static final String RECEIPT_FOLDER = "receipts";
+    private static final String RECEIPT_FOLDER = "receipts.txt";
     private static final DateTimeFormatter FILE_NAME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 
     public static void saveReceipt(Order order) {

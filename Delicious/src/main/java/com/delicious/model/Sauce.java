@@ -7,6 +7,11 @@ public class Sauce extends Topping {
 
     @Override
     public double getPrice(String sandwichSize) {
-        return 0.00;
+        return DeliMenu.getToppingPrice(getName(), "sauce", sandwichSize, false, 0);
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }
