@@ -1,5 +1,7 @@
 package com.delicious.model;
 
+import com.delicious.utility.DeliMenu;
+
 public class RegularTopping extends Topping{
     public RegularTopping(String name) {
         super(name);

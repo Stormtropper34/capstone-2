@@ -1,5 +1,7 @@
 package com.delicious.model;
 
+import com.delicious.utility.DeliMenu;
+
 public class Drink extends MenuItem{
     private String flavor;
     private String size;

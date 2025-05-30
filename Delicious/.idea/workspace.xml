@@ -5,18 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="449a0883-e6db-4a69-ada7-36d954575559" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/receipts.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/data/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/data/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/data/Receipt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/data/Receipt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/data/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/data/Receipt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Receipt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/Cheese.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Cheese.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/Chips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Chips.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/DeliMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/DeliMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/utility/DeliMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/Drink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Drink.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Item.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/Meat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Meat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/MenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/PriceTopping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/data/PriceTopping.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/RegularTopping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/RegularTopping.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/Sandwich.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Sandwich.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/delicious/model/Sauce.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/delicious/model/Sauce.java" afterDir="false" />

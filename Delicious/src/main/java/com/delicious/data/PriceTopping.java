@@ -1,4 +1,4 @@
-package com.delicious.model;
+package com.delicious.data;
 
 public class PriceTopping {
     private String name;

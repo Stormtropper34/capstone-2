@@ -1,6 +1,4 @@
-package com.delicious.data;
-
-import com.delicious.model.MenuItem;
+package com.delicious.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

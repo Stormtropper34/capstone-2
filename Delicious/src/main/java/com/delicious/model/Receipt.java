@@ -1,4 +1,4 @@
-package com.delicious.data;
+package com.delicious.model;
 
 import java.io.BufferedWriter;
 import java.io.File;

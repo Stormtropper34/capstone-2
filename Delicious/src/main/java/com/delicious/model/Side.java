@@ -1,5 +1,7 @@
 package com.delicious.model;
 
+import com.delicious.utility.DeliMenu;
+
 public class Side extends Topping{
     public Side(String name) {
         super(name);

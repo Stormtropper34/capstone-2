@@ -1,5 +1,7 @@
 package com.delicious.model;
 
+import com.delicious.utility.DeliMenu;
+
 import java.util.ArrayList;
 import java.util.List;
 

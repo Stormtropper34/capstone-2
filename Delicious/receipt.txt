@@ -1,0 +1,22 @@
+----- DELICIOUS SANDWICHES RECEIPT -----
+Date/Time: 2025-05-29 22:04:31
+--- Items ---
+  1. 8" Wrap Sandwich (Toasted)
+          Toppings:
+        - Steak
+        - American
+        - Provolone
+        - Onions
+        - Cucumbers
+        - Guacamole
+        - Mushrooms
+        - Au Jus
+          Item Price: $12.50 (Price: $12.50)
+  2. Water (Small) (Price: $2.00)
+  3. Chips (Original) (Price: $1.50)
+-------------
+Total: $16.00
+
+----------------------------------------
+Order Total: $16.00
+----------------------------------------

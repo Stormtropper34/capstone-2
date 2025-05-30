@@ -1,17 +1,24 @@
 package com.delicious.ui;
 
-import com.delicious.data.Order;
+import com.delicious.model.Order;
 import com.delicious.model.*;
+import com.delicious.utility.DeliMenu;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 
+
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
     private Order currentOrder;
+    private static final DateTimeFormatter FILE_NAME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -254,8 +261,12 @@ public class Main {
 
     private void addDrink() {
         System.out.println("\n---- ADD DRINK ----");
-        String size = userChoice("drink size", DeliMenu.drinkSizes, DeliMenu::getDrinkPrice);
-        String flavor = userChoice("drink flavor", DeliMenu.drinkFlavors, (Function<String, Double>) null);
+        List<Double> drinkSizePrices = new ArrayList<>();
+        for (String size : DeliMenu.drinkSizes) {
+            drinkSizePrices.add(DeliMenu.getDrinkPrice(size));
+        }
+        String size = userChoice("drink size", DeliMenu.drinkSizes, drinkSizePrices);
+        String flavor = userChoice("drink flavor", DeliMenu.drinkFlavors, (List<Double>) null);
 
         currentOrder.addItem(new Drink(flavor, size));
         System.out.println("Drink added!");
@@ -275,22 +286,42 @@ public class Main {
 
 
     private void checkout() {
-        if (currentOrder.getItems().isEmpty()) {
-            System.out.println("Cannot checkout, order is empty.");
-            return;
+        if (currentOrder == null || currentOrder.getItems().isEmpty()) {
+            System.out.println("Cannot confirm, order is empty.");
         }
-        System.out.println("\n--- CHECKOUT ---");
-        displayOrderItemsSummary(currentOrder);
-        System.out.println("Applying sales tax (if any)...");
+
+        System.out.println("\n--- CONFIRMING ORDER ---");
+        String orderDetails = currentOrder.getDetails();
+
+        System.out.println(orderDetails);
+        String filename = "receipt.txt";
+
+        try (FileWriter fileWriter = new FileWriter("receipt.txt", false);
+             PrintWriter printWriter = new PrintWriter(fileWriter)) {
+
+            printWriter.println("-----  RECEIPT -----");
+            printWriter.println(orderDetails);
+            printWriter.println("----------------------------------------");
+            printWriter.println(String.format("Order Total: $%.2f", currentOrder.getTotalCost()));
+            printWriter.println("----------------------------------------");
+
+            System.out.println("Receipt is saved!!");
+
+        } catch (IOException e) {
+            System.err.println("Error saving receipt to file: " + e.getMessage());
+        }
+
         double finalTotal = currentOrder.getTotalCost();
         System.out.println("Your total is: $" + String.format("%.2f", finalTotal));
         System.out.println("Thank you for your order!");
+
         currentOrder = null;
+
     }
 
     private void cancelOrder() {
         currentOrder = null;
-        System.out.println("Order canceled :(");
+        System.out.println("Order canceled :(. Back to home screen");
     }
 }
 

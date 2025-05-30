@@ -1,4 +1,7 @@
-package com.delicious.model;
+package com.delicious.utility;
+
+import com.delicious.data.PriceTopping;
+import com.delicious.model.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;

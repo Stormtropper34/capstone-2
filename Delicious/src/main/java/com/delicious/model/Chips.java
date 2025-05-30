@@ -1,5 +1,7 @@
 package com.delicious.model;
 
+import com.delicious.utility.DeliMenu;
+
 public class Chips extends MenuItem{
     private String type;
 

@@ -1,5 +1,7 @@
 package com.delicious.model;
 
+import com.delicious.utility.DeliMenu;
+
 public class Cheese extends Topping {
     private boolean isExtra;
     private int extraCount;
@@ -17,6 +19,10 @@ public class Cheese extends Topping {
     }
     public double getPrice(String sandwichSize) {
         return DeliMenu.getToppingPrice(getName(),"cheese", sandwichSize, isExtra, extraCount);
+    }
+    @Override
+    public String toString() {
+        return getName();
     }
 
 }
